@@ -1,5 +1,5 @@
 // Globals
-var queryURL = "";
+var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=3c3850fc219544eca9e26a2398363927";
 var begindate = "";
 var enddate = "";
 var qttarticles = 10;
@@ -8,12 +8,12 @@ console.log("begin");
 function showarticles(qttarticles, articles) { // function to show articles in the Div. %%% update divs
     console.log("show function");
     console.log(articles);
-    console.log(articles.docs[0].snippet);
+    console.log(articles[0].snippet);
 
 
     for (i = 0; i < qttarticles; i++) {
         console.log("loop:" + i);
-        $("#articles").append("Article " + i + " " + articles.docs[i].snippet + "<br>");
+        $("#articles").append("Article " + i + " " + articles[i].snippet + "<br>");
     }
 }
 
@@ -32,11 +32,12 @@ function search(qttarticles, queryURL) {
         showarticles(qttarticles, search);
     })
 }
-
+var goBtn = document.querySelector("#searchbutton");
 //
-window.onload = function () {
-    console.log("load");
-}
+goBtn.addEventListener("click", function() {
+//window.onload = function () {
+//    console.log("load");
+//}
 
 //$("btn btn-primary").on("click", function () {
 //    console.log("onclick btn");
@@ -47,7 +48,9 @@ window.onload = function () {
 
 
 
-$("#buttonSearch").on("click", function () {
+
+var term="";
+//$("#buttonSearch").on("click", function () {
     $("#articles").append("zzzzzzzz");
     console.log("Term1: " + term);
     term = "&q=" + $("#searchTerm").val().trim();
@@ -55,7 +58,7 @@ $("#buttonSearch").on("click", function () {
     console.log("Term2: " + term);
 
     begindate = $("#startYear").val().trim() + "0101";
-    enddate = $("#endYear").val().trim() + "0101";
+    enddate = $("#endYear").val().trim() + "1201";
 
     if (parseInt(begindate)) {
         console.log(queryURL);
@@ -76,5 +79,5 @@ $("#buttonSearch").on("click", function () {
 
     search(qttarticles, queryURL);
 
-})
+});
 
